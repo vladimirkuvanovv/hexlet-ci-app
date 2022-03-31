@@ -7,9 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: npm # ускоряет повторные сборки
       - name: create project
         run: make setup
       - name: run tests
         run: make test
       - name: run lint
         run: make lint  
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
