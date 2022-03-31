@@ -1,0 +1,15 @@
+name: test-ci
+
+on: push
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: create project
+        run: make setup
+      - name: run tests
+        run: make test
+      - name: run lint
+        run: make lint  
